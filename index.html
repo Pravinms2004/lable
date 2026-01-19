@@ -115,7 +115,10 @@
   <input type="text" oninput="updateAll('batch', this.value)" />
 
   <label>MFG Date</label>
-  <input type="date" oninput="updateAll('mfg', this.value)" />
+  <input type="date" onchange="updateDateAll('mfg', this.value)" />
+
+  <label>EXP Date</label>
+  <input type="date" onchange="updateDateAll('exp', this.value)" />
 
   <label>M.R.P</label>
   <input type="number" value="2000" oninput="updateAll('price', this.value)" />
@@ -129,11 +132,13 @@
       document.write(`
         <div class="label">
           <div class="title">SRI VENKATESHWARA</div>
+          <div style="text-align:center;font-size:12px;">569, Main Road, SHEVAPET, SALEM - 636 002</div>
           <div class="subtitle">JAGGERY - <span class="type"></span></div>
           <div class="row"><span>FSSAI NO</span><span class="fssai"></span></div>
           <div class="row"><span>QUANTITY</span><span class="qty"></span></div>
           <div class="row"><span>BATCH NO</span><span class="batch"></span></div>
           <div class="row"><span>MFG DATE</span><span class="mfg"></span></div>
+          <div class="row"><span>EXP DATE</span><span class="exp"></span></div>
           <div class="row"><span>M.R.P</span><span>₹ <span class="price">2000</span></span></div>
         </div>
       `);
@@ -141,6 +146,13 @@
 
     function updateAll(cls, value) {
       document.querySelectorAll('.' + cls).forEach(el => el.textContent = value);
+    }
+
+    function updateDateAll(cls, value) {
+      if (!value) return;
+      const [y, m, d] = value.split('-');
+      const formatted = `${d}-${m}-${y}`;
+      document.querySelectorAll('.' + cls).forEach(el => el.textContent = formatted);
     }
   </script>
 </div>
