@@ -96,6 +96,15 @@
 <div class="controls">
   <h3>Edit Label Details</h3>
 
+  <label>Jaggery Type</label>
+  <select onchange="updateAll('type', this.value)">
+    <option value="">-- Select Type --</option>
+    <option>KAL PASAI</option>
+    <option>ARA PASAI</option>
+    <option>BROWN</option>
+    <option>YELLOW</option>
+  </select>
+
   <label>FSSAI No</label>
   <input type="text" oninput="updateAll('fssai', this.value)" />
 
@@ -120,7 +129,7 @@
       document.write(`
         <div class="label">
           <div class="title">SRI VENKATESHWARA</div>
-          <div class="subtitle">JAGGERY</div>
+          <div class="subtitle">JAGGERY - <span class="type"></span></div>
           <div class="row"><span>FSSAI NO</span><span class="fssai"></span></div>
           <div class="row"><span>QUANTITY</span><span class="qty"></span></div>
           <div class="row"><span>BATCH NO</span><span class="batch"></span></div>
