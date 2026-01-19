@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Label Print</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      padding: 20px;
+      direction: ltr;
+    }
+
+    .controls {
+      margin-bottom: 20px;
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      max-width: 350px;
+    }
+
+    .controls label {
+      font-weight: bold;
+      display: block;
+      margin-top: 10px;
+    }
+
+    .controls input {
+      width: 100%;
+      padding: 6px;
+      margin-top: 4px;
+    }
+
+    button {
+      margin-top: 15px;
+      width: 100%;
+      padding: 10px;
+      background: #000;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* A4 sheet – 12 labels */
+    .sheet {
+      width: 210mm;
+      min-height: 297mm;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(4, auto);
+      gap: 8mm;
+      padding: 10mm;
+      box-sizing: border-box;
+      background: #fff;
+    }
+
+    .label {
+      border: 2px solid #000;
+      padding: 10px;
+      font-size: 13px;
+      box-sizing: border-box;
+    }
+
+    .title {
+      text-align: center;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      margin: 4px 0;
+    }
+
+    .row span:first-child {
+      font-weight: bold;
+    }
+
+    @media print {
+      @page { size: A4; margin: 10mm; }
+      body { background: #fff; padding: 0; }
+      .controls { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="controls">
+  <h3>Edit Label Details</h3>
+
+  <label>FSSAI No</label>
+  <input type="text" oninput="updateAll('fssai', this.value)" />
+
+  <label>Quantity</label>
+  <input type="text" oninput="updateAll('qty', this.value)" />
+
+  <label>Batch No</label>
+  <input type="text" oninput="updateAll('batch', this.value)" />
+
+  <label>MFG Date</label>
+  <input type="date" oninput="updateAll('mfg', this.value)" />
+
+  <label>M.R.P</label>
+  <input type="number" value="2000" oninput="updateAll('price', this.value)" />
+
+  <button onclick="window.print()">Print 12 Labels (A4)</button>
+</div>
+
+<div class="sheet">
+  <script>
+    for (let i = 0; i < 12; i++) {
+      document.write(`
+        <div class="label">
+          <div class="title">SRI VENKATESHWARA</div>
+          <div class="subtitle">JAGGERY</div>
+          <div class="row"><span>FSSAI NO</span><span class="fssai"></span></div>
+          <div class="row"><span>QUANTITY</span><span class="qty"></span></div>
+          <div class="row"><span>BATCH NO</span><span class="batch"></span></div>
+          <div class="row"><span>MFG DATE</span><span class="mfg"></span></div>
+          <div class="row"><span>M.R.P</span><span>₹ <span class="price">2000</span></span></div>
+        </div>
+      `);
+    }
+
+    function updateAll(cls, value) {
+      document.querySelectorAll('.' + cls).forEach(el => el.textContent = value);
+    }
+  </script>
+</div>
+
+</body>
+</html>
